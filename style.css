@@ -1,0 +1,86 @@
+/* Stili base per il layout mobile */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+  text-align: center;
+}
+
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+}
+
+/* Gestione delle schermate */
+.screen {
+  display: none;
+  padding: 20px;
+  position: relative;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* Stile per i bottoni */
+button {
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Stile per la freccia di ritorno */
+.back-arrow {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Stili per il form e le select */
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+select {
+  font-size: 16px;
+  margin: 5px;
+  padding: 5px;
+}
+
+/* Stile per gli input dei giocatori */
+#player-inputs div {
+  margin: 10px 0;
+}
+
+input.player-name {
+  font-size: 16px;
+  padding: 8px;
+  width: 80%;
+}
+
+/* Contenitore per domande e opzioni (per game-screen) */
+#question-container {
+  margin: 20px 0;
+}
+
+#question-text {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+#options-container button {
+  display: block;
+  margin: 8px auto;
+  padding: 10px;
+  width: 80%;
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questo sei TU!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    
+    <!-- Pagina 1: Schermata Iniziale -->
+    <div id="start-screen" class="screen active">
+      <h1>Questo sei TU!</h1>
+      <p>L’unica cosa che dovete conoscere sono i vostri amici!</p>
+      <button id="btn-start">Inizia</button>
+    </div>
+    
+    <!-- Pagina 2: Schermata Impostazioni Partita -->
+    <div id="settings-screen" class="screen hidden">
+      <!-- Freccia di ritorno (in alto a sinistra) -->
+      <div class="back-arrow" id="settings-back-arrow">&#8592;</div>
+      <h2>Impostazioni Partita</h2>
+      <label for="num-players-select">Numero di giocatori:</label>
+      <select id="num-players-select">
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+      </select>
+      <br>
+      <label for="num-rounds-select">Numero di turni:</label>
+      <select id="num-rounds-select">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5" selected>5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      <br>
+      <button id="btn-settings-next" type="button">Avanti</button>
+    </div>
+    
+    <!-- Pagina 3: Schermata Registrazione Giocatori -->
+    <div id="player-screen" class="screen hidden">
+      <!-- Freccia di ritorno (in alto a sinistra) -->
+      <div class="back-arrow" id="player-back-arrow">&#8592;</div>
+      <h2>Registrazione Giocatori</h2>
+      <form id="player-form">
+        <div id="player-inputs">
+          <!-- Qui verranno aggiunti dinamicamente i campi per i nomi -->
+        </div>
+        <button id="btn-start-game" type="submit">Avvia Partita</button>
+      </form>
+    </div>
+    
+    <!-- Schermata di Gioco (per ora rimane invariata) -->
+    <div id="game-screen" class="screen hidden">
+      <h2>Gioco in Corso</h2>
+      <div id="question-area">
+        <!-- Le domande verranno inserite dinamicamente qui -->
+      </div>
+      <button id="btn-next">Prossima Domanda</button>
+    </div>
+    
+  </div>
+  
+  <script src="main.js"></script>
+</body>
+</html>
