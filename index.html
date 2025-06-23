@@ -3,47 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Questo sei TU!</title>
+  <title>Chi Tra Noi?</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="app">
     
+    <!-- Ingranaggio globale, sempre visibile in alto a destra -->
+    <div id="global-options">
+      <div class="options-gear" id="options-gear">⚙</div>
+      <div class="context-menu hidden" id="context-menu">
+        <ul>
+          <li id="menu-intro">Introduzione</li>
+          <li id="menu-home">Torna alla schermata principale</li>
+        </ul>
+      </div>
+    </div>
+    
     <!-- Pagina 1: Schermata Iniziale -->
     <div id="start-screen" class="screen active">
-      <h1>Questo sei TU!</h1>
+      <h1>Chi Tra Noi?</h1>
       <p>L’unica cosa che dovete conoscere sono i vostri amici!</p>
       <button id="btn-start">Inizia</button>
     </div>
     
     <!-- Pagina 2: Schermata Impostazioni Partita -->
     <div id="settings-screen" class="screen hidden">
+      <!-- Nella schermata ora non c’è più l’ingranaggio interno, poiché è globale -->
       <!-- Freccia di ritorno (in alto a sinistra) -->
       <div class="back-arrow" id="settings-back-arrow">&#8592;</div>
       <h2>Impostazioni Partita</h2>
-      <label for="num-players-select">Numero di giocatori:</label>
-      <select id="num-players-select">
-        <option value="2" selected>2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-      </select>
+      
+      <label for="num-players-value">Numero di giocatori:</label>
+      <div id="num-players-container" class="spinner-container">
+        <button id="btn-decrease-players" class="arrow-button">◀</button>
+        <span id="num-players-value">2</span>
+        <button id="btn-increase-players" class="arrow-button">▶</button>
+      </div>
+      
       <br>
-      <label for="num-rounds-select">Numero di turni:</label>
-      <select id="num-rounds-select">
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5" selected>5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select>
+      
+      <label for="num-rounds-value">Numero di turni:</label>
+      <div id="num-rounds-container" class="spinner-container">
+        <button id="btn-decrease-rounds" class="arrow-button">◀</button>
+        <span id="num-rounds-value">5</span>
+        <button id="btn-increase-rounds" class="arrow-button">▶</button>
+      </div>
+      
       <br>
       <button id="btn-settings-next" type="button">Avanti</button>
     </div>
@@ -55,17 +61,17 @@
       <h2>Registrazione Giocatori</h2>
       <form id="player-form">
         <div id="player-inputs">
-          <!-- Qui verranno aggiunti dinamicamente i campi per i nomi -->
+          <!-- Gli input per i nomi verranno generati dinamicamente -->
         </div>
         <button id="btn-start-game" type="submit">Avvia Partita</button>
       </form>
     </div>
     
-    <!-- Schermata di Gioco (per ora rimane invariata) -->
+    <!-- Schermata di Gioco (fase di domanda – per ora dummy) -->
     <div id="game-screen" class="screen hidden">
       <h2>Gioco in Corso</h2>
       <div id="question-area">
-        <!-- Le domande verranno inserite dinamicamente qui -->
+        <!-- Le domande verranno generate dinamicamente qui -->
       </div>
       <button id="btn-next">Prossima Domanda</button>
     </div>

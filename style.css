@@ -15,6 +15,53 @@ body {
   position: relative;
 }
 
+/* Global options - posizionato fisso in alto a destra */
+#global-options {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+/* Stile per l'ingranaggio */
+.options-gear {
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Menù contestuale per le opzioni */
+.context-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  padding: 10px;
+  z-index: 100;
+}
+
+.context-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.context-menu li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.context-menu li:hover {
+  background: #f0f0f0;
+}
+
+/* Classe per nascondere gli elementi */
+.hidden {
+  display: none;
+}
+
 /* Gestione delle schermate */
 .screen {
   display: none;
@@ -36,25 +83,41 @@ button {
 
 /* Stile per la freccia di ritorno */
 .back-arrow {
-  position: absolute;
-  top: 10px;
+  position: fixed;
+  top: 10px;  /* posizionata al top per allinearsi con l’ingranaggio */
   left: 10px;
   font-size: 28px;
   cursor: pointer;
   color: #333;
 }
 
-/* Stili per il form e le select */
+
+/* Contenitore per i controlli "spinner" */
+.spinner-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+/* Stile per i pulsanti freccia dei controlli spinner */
+.arrow-button {
+  font-size: 22px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Pulsanti disabilitati appariranno opachi */
+.arrow-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Stili per le etichette */
 label {
   font-weight: bold;
   display: block;
   margin-top: 10px;
-}
-
-select {
-  font-size: 16px;
-  margin: 5px;
-  padding: 5px;
 }
 
 /* Stile per gli input dei giocatori */
@@ -68,7 +131,7 @@ input.player-name {
   width: 80%;
 }
 
-/* Contenitore per domande e opzioni (per game-screen) */
+/* Contenitore per domande e opzioni (fase di gioco) */
 #question-container {
   margin: 20px 0;
 }
