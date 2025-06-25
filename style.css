@@ -111,7 +111,7 @@ button {
 /* Freccia di ritorno */
 .back-arrow {
   position: fixed;
-  top: 5px;    /* rialzata per allinearsi all’ingranaggio */
+  top: 10px;    /* rialzata per allinearsi all’ingranaggio */
   left: 10px;
   font-size: 28px;
   cursor: pointer;
