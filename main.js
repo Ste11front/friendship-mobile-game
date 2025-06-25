@@ -1,218 +1,137 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Riferimenti alle schermate
-  const startScreen = document.getElementById('start-screen');
+  // --- Riferimenti alle schermate ---
+  const startScreen    = document.getElementById('start-screen');
   const settingsScreen = document.getElementById('settings-screen');
-  const playerScreen = document.getElementById('player-screen');
-  const gameScreen = document.getElementById('game-screen');
+  const playerScreen   = document.getElementById('player-screen');
+  const gameScreen     = document.getElementById('game-screen');
 
-  /* --- Controlli per il numero di giocatori (spinner) --- */
+  // --- Spinner numero giocatori ---
   const numPlayersValueSpan = document.getElementById('num-players-value');
-  const btnDecreasePlayers = document.getElementById('btn-decrease-players');
-  const btnIncreasePlayers = document.getElementById('btn-increase-players');
-  const minPlayers = 2;
-  const maxPlayers = 8;
-  let currentPlayers = minPlayers; // Valore iniziale
-
+  const btnDecreasePlayers  = document.getElementById('btn-decrease-players');
+  const btnIncreasePlayers  = document.getElementById('btn-increase-players');
+  const minPlayers = 2, maxPlayers = 8;
+  let currentPlayers = minPlayers;
   function updatePlayerSpinner() {
     numPlayersValueSpan.textContent = currentPlayers;
-    btnDecreasePlayers.disabled = (currentPlayers <= minPlayers);
-    btnIncreasePlayers.disabled = (currentPlayers >= maxPlayers);
+    btnDecreasePlayers.disabled = currentPlayers <= minPlayers;
+    btnIncreasePlayers.disabled = currentPlayers >= maxPlayers;
   }
-  
-  btnDecreasePlayers.addEventListener('click', () => {
-    if (currentPlayers > minPlayers) {
-      currentPlayers--;
-      updatePlayerSpinner();
-    }
-  });
-  
-  btnIncreasePlayers.addEventListener('click', () => {
-    if (currentPlayers < maxPlayers) {
-      currentPlayers++;
-      updatePlayerSpinner();
-    }
-  });
-  
+  btnDecreasePlayers.addEventListener('click', () => { if (currentPlayers>minPlayers) currentPlayers-- & updatePlayerSpinner(); });
+  btnIncreasePlayers.addEventListener('click', () => { if (currentPlayers<maxPlayers) currentPlayers++ & updatePlayerSpinner(); });
   updatePlayerSpinner();
 
-  /* --- Controlli per il numero di turni (spinner) --- */
+  // --- Spinner numero turni ---
   const numRoundsValueSpan = document.getElementById('num-rounds-value');
-  const btnDecreaseRounds = document.getElementById('btn-decrease-rounds');
-  const btnIncreaseRounds = document.getElementById('btn-increase-rounds');
-  const minRounds = 2;
-  const maxRounds = 10;
-  let currentRounds = 5; // Valore iniziale
-
+  const btnDecreaseRounds  = document.getElementById('btn-decrease-rounds');
+  const btnIncreaseRounds  = document.getElementById('btn-increase-rounds');
+  const minRounds = 2, maxRounds = 10;
+  let currentRounds = 5;
   function updateRoundsSpinner() {
     numRoundsValueSpan.textContent = currentRounds;
-    btnDecreaseRounds.disabled = (currentRounds <= minRounds);
-    btnIncreaseRounds.disabled = (currentRounds >= maxRounds);
+    btnDecreaseRounds.disabled = currentRounds <= minRounds;
+    btnIncreaseRounds.disabled = currentRounds >= maxRounds;
   }
-  
-  btnDecreaseRounds.addEventListener('click', () => {
-    if (currentRounds > minRounds) {
-      currentRounds--;
-      updateRoundsSpinner();
-    }
-  });
-  
-  btnIncreaseRounds.addEventListener('click', () => {
-    if (currentRounds < maxRounds) {
-      currentRounds++;
-      updateRoundsSpinner();
-    }
-  });
-  
+  btnDecreaseRounds.addEventListener('click', () => { if (currentRounds>minRounds) currentRounds-- & updateRoundsSpinner(); });
+  btnIncreaseRounds.addEventListener('click', () => { if (currentRounds<maxRounds) currentRounds++ & updateRoundsSpinner(); });
   updateRoundsSpinner();
 
-  /* --- Navigazione tra le schermate --- */
-  
-  // Pulsante "Inizia" nella Pagina 1: vai alla schermata Impostazioni (Pagina 2)
-  const btnStart = document.getElementById('btn-start');
-  btnStart.addEventListener('click', () => {
-    startScreen.classList.remove('active');
-    startScreen.classList.add('hidden');
-    settingsScreen.classList.remove('hidden');
-    settingsScreen.classList.add('active');
+  // --- Navigazione schermate ---
+  document.getElementById('btn-start').addEventListener('click', () => {
+    startScreen.classList.replace('active','hidden');
+    settingsScreen.classList.replace('hidden','active');
   });
-  
-  // Back-arrow nella schermata Impostazioni: torna allo start screen
-  const settingsBackArrow = document.getElementById('settings-back-arrow');
-  settingsBackArrow.addEventListener('click', () => {
-    settingsScreen.classList.remove('active');
-    settingsScreen.classList.add('hidden');
-    startScreen.classList.remove('hidden');
-    startScreen.classList.add('active');
+  document.getElementById('settings-back-arrow').addEventListener('click', () => {
+    settingsScreen.classList.replace('active','hidden');
+    startScreen.classList.replace('hidden','active');
   });
-  
-  // Pulsante "Avanti" nella schermata Impostazioni: passa alla schermata Registrazione Giocatori (Pagina 3)
-  const btnSettingsNext = document.getElementById('btn-settings-next');
-  btnSettingsNext.addEventListener('click', () => {
-    const numPlayers = currentPlayers;
-    const numRounds = currentRounds;
-    gameState.numPlayers = numPlayers;
-    gameState.totalRounds = numRounds;
-    
-    // Genera dinamicamente gli input per i nomi dei giocatori
+  document.getElementById('btn-settings-next').addEventListener('click', () => {
+    gameState.numPlayers  = currentPlayers;
+    gameState.totalRounds = currentRounds;
     const playerInputs = document.getElementById('player-inputs');
     playerInputs.innerHTML = '';
-    for (let i = 0; i < numPlayers; i++) {
-      addPlayerInput();
-    }
-    
-    settingsScreen.classList.remove('active');
-    settingsScreen.classList.add('hidden');
-    playerScreen.classList.remove('hidden');
-    playerScreen.classList.add('active');
+    for(let i=0; i<currentPlayers; i++) addPlayerInput();
+    settingsScreen.classList.replace('active','hidden');
+    playerScreen.classList.replace('hidden','active');
   });
-  
-  // Back-arrow nella schermata Registrazione: torna alla schermata Impostazioni
-  const playerBackArrow = document.getElementById('player-back-arrow');
-  playerBackArrow.addEventListener('click', () => {
-    playerScreen.classList.remove('active');
-    playerScreen.classList.add('hidden');
-    settingsScreen.classList.remove('hidden');
-    settingsScreen.classList.add('active');
+  document.getElementById('player-back-arrow').addEventListener('click', () => {
+    playerScreen.classList.replace('active','hidden');
+    settingsScreen.classList.replace('hidden','active');
   });
-  
-  // Form Registrazione Giocatori: avvia la partita
-  const playerForm = document.getElementById('player-form');
-  playerForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+  document.getElementById('player-form').addEventListener('submit', e => {
+    e.preventDefault();
     const players = [];
-    const playerInputElements = document.querySelectorAll('.player-name');
-    playerInputElements.forEach(input => {
-      if (input.value.trim() !== '') {
-        players.push({ name: input.value.trim(), score: 0 });
-      }
+    document.querySelectorAll('.player-name').forEach(input => {
+      if (input.value.trim()) players.push({ name: input.value.trim(), score: 0 });
     });
-    
-    if (players.length < 2) {
-      alert('Inserisci almeno 2 giocatori!');
-      return;
-    }
-    
-    console.log('Giocatori registrati:', players);
-    playerScreen.classList.remove('active');
-    playerScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
-    gameScreen.classList.add('active');
+    if (players.length < 2) return alert('Inserisci almeno 2 giocatori!');
+    gameState.players = players;
+    playerScreen.classList.replace('active','hidden');
+    gameScreen.classList.replace('hidden','active');
     startGame(players);
   });
-  
-  // Funzione per aggiungere un campo input per il nome di un giocatore
+
+  // --- Aggiungi input giocatore ---
   function addPlayerInput() {
-    const inputDiv = document.createElement('div');
-    const input = document.createElement('input');
-    input.classList.add('player-name');
-    input.setAttribute('type', 'text');
-    input.setAttribute('placeholder', 'Nome giocatore');
-    inputDiv.appendChild(input);
-    document.getElementById('player-inputs').appendChild(inputDiv);
+    const div = document.createElement('div');
+    const inp = document.createElement('input');
+    inp.className = 'player-name';
+    inp.type = 'text';
+    inp.placeholder = 'Nome giocatore';
+    div.appendChild(inp);
+    document.getElementById('player-inputs').appendChild(div);
   }
-  
-  /* --- Gestione dell'ingranaggio e menù contestuale globale --- */
-  
-  const optionsGear = document.getElementById('options-gear');
-  const contextMenu = document.getElementById('context-menu');
-  
-  optionsGear.addEventListener('click', () => {
-    if (contextMenu.classList.contains('hidden')) {
-      optionsGear.textContent = "✖";
-      contextMenu.classList.remove('hidden');
-    } else {
-      optionsGear.textContent = "⚙";
-      contextMenu.classList.add('hidden');
-    }
-  });
-  
-  // Eventi per il menù contestuale
+
+  // --- Overlay OPZIONI ---
+  const gear      = document.getElementById('options-gear');
+  const overlay   = document.getElementById('options-overlay');
   const menuIntro = document.getElementById('menu-intro');
-  const menuHome = document.getElementById('menu-home');
-  
+  const menuHome  = document.getElementById('menu-home');
+  const menuSound = document.getElementById('menu-sound');
+  let soundOn = true;
+
+  function openOptions() {
+    gear.textContent = '✖';
+    overlay.classList.remove('hidden');
+  }
+  function closeOptions() {
+    gear.textContent = '⚙';
+    overlay.classList.add('hidden');
+  }
+
+  gear.addEventListener('click', () => {
+    overlay.classList.contains('hidden') ? openOptions() : closeOptions();
+  });
   menuIntro.addEventListener('click', () => {
-    alert("Introduzione: [Inserisci qui il testo introduttivo del gioco]");
-    optionsGear.textContent = "⚙";
-    contextMenu.classList.add('hidden');
+    alert("Introduzione: [inserisci qui il testo introduttivo]");
+    closeOptions();
   });
-  
   menuHome.addEventListener('click', () => {
-    // Riporta a start screen: nasconde eventuali schermate attive e mostra lo start screen
-    settingsScreen.classList.remove('active');
-    settingsScreen.classList.add('hidden');
-    playerScreen.classList.remove('active');
-    playerScreen.classList.add('hidden');
-    gameScreen.classList.remove('active');
-    gameScreen.classList.add('hidden');
-    
-    startScreen.classList.remove('hidden');
-    startScreen.classList.add('active');
-    
-    optionsGear.textContent = "⚙";
-    contextMenu.classList.add('hidden');
+    [settingsScreen, playerScreen, gameScreen].forEach(s => {
+      s.classList.replace('active','hidden');
+    });
+    startScreen.classList.replace('hidden','active');
+    closeOptions();
   });
-  
-  /* --- Gestione della Fase di Gioco (Round) --- */
-  
+  menuSound.addEventListener('click', () => {
+    soundOn = !soundOn;
+    menuSound.textContent = soundOn ? 'Suono: 🔊' : 'Suono: 🔇';
+    // qui gestirai play/pause dell’audio di gioco
+  });
+
+  // --- Dummy questions & game flow ---
   const dummyQuestions = [
-    { id: 1, text: "Domanda 1: Chi è il più divertente?", options: ["Opzione A", "Opzione B", "Opzione C", "Opzione D"], type: "chi" },
-    { id: 2, text: "Domanda 2: Cosa farebbe Mario in una festa?", options: ["Opzione A", "Opzione B", "Opzione C", "Opzione D"], type: "scelta" },
-    { id: 3, text: "Domanda 3: Chi è più probabile per...", options: ["Opzione A", "Opzione B", "Opzione C", "Opzione D"], type: "chi" },
-    { id: 4, text: "Domanda 4: La Scelta – quale azione è corretta?", options: ["Opzione A", "Opzione B", "Opzione C", "Opzione D"], type: "scelta" },
-    { id: 5, text: "Domanda 5: Completa la frase: ___", options: ["Opzione A", "Opzione B", "Opzione C", "Opzione D"], type: "completa" }
+    { id:1, text:"Domanda 1: Chi è il più divertente?", options:["A","B","C","D"] },
+    { id:2, text:"Domanda 2: Cosa farebbe Mario in una festa?", options:["A","B","C","D"] },
+    { id:3, text:"Domanda 3: Chi è più probabile per...", options:["A","B","C","D"] },
+    { id:4, text:"Domanda 4: La Scelta – quale azione è corretta?", options:["A","B","C","D"] },
+    { id:5, text:"Domanda 5: Completa la frase: ___", options:["A","B","C","D"] }
   ];
-  
   let gameState = {
-    players: [],
-    totalRounds: 5,
-    numPlayers: 2,
-    currentRound: 1,
-    currentQuestionIndex: 0,
-    questions: [],
-    answers: [],
-    jollyUsed: false
+    players: [], totalRounds:5, numPlayers:2,
+    currentRound:1, currentQuestionIndex:0,
+    questions:[], answers:[], jollyUsed:false
   };
-  
+
   function startGame(players) {
     gameState.players = players;
     gameState.questions = dummyQuestions;
@@ -221,68 +140,59 @@ document.addEventListener('DOMContentLoaded', () => {
     gameState.jollyUsed = false;
     showNextQuestion();
   }
-  
+
   function showNextQuestion() {
-    const questionArea = document.getElementById('question-area');
-    questionArea.innerHTML = '';
-    
+    const qa = document.getElementById('question-area');
+    qa.innerHTML = '';
     if (gameState.currentQuestionIndex >= gameState.questions.length) {
-      questionArea.innerHTML = "<p>Round completato! (Prossime fasi in sviluppo.)</p>";
-      document.getElementById('btn-next').style.display = "none";
+      qa.innerHTML = "<p>Round completato! (Prossime fasi in sviluppo.)</p>";
+      document.getElementById('btn-next').style.display = 'none';
       return;
     }
-    
-    const question = gameState.questions[gameState.currentQuestionIndex];
+    const q = gameState.questions[gameState.currentQuestionIndex];
     const container = document.createElement('div');
     container.id = 'question-container';
-    
     const qText = document.createElement('p');
     qText.id = 'question-text';
-    qText.textContent = question.text;
+    qText.textContent = q.text;
     container.appendChild(qText);
-    
-    const optionsContainer = document.createElement('div');
-    optionsContainer.id = 'options-container';
-    question.options.forEach((option, index) => {
-      const btnOption = document.createElement('button');
-      btnOption.textContent = option;
-      btnOption.addEventListener('click', () => {
-        recordAnswer(option, gameState.jollyUsed, index);
-      });
-      optionsContainer.appendChild(btnOption);
+
+    const oc = document.createElement('div');
+    oc.id = 'options-container';
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.textContent = opt;
+      btn.addEventListener('click', () => recordAnswer(opt));
+      oc.appendChild(btn);
     });
-    container.appendChild(optionsContainer);
-    
+    container.appendChild(oc);
+
     const btnJolly = document.createElement('button');
     btnJolly.id = 'btn-jolly';
-    btnJolly.textContent = "Usa Jolly";
+    btnJolly.textContent = 'Usa Jolly';
     btnJolly.addEventListener('click', () => {
       gameState.jollyUsed = true;
       btnJolly.disabled = true;
-      btnJolly.textContent = "Jolly Usato";
+      btnJolly.textContent = 'Jolly Usato';
     });
     container.appendChild(btnJolly);
-    
-    questionArea.appendChild(container);
-    document.getElementById('btn-next').style.display = "none";
+
+    qa.appendChild(container);
+    document.getElementById('btn-next').style.display = 'none';
   }
-  
-  function recordAnswer(selectedOption, jollyUsed, optionIndex) {
+
+  function recordAnswer(option) {
     gameState.answers.push({
       questionId: gameState.questions[gameState.currentQuestionIndex].id,
-      selectedOption: selectedOption,
-      jollyUsed: jollyUsed,
-      optionIndex: optionIndex
+      selectedOption: option,
+      jollyUsed: gameState.jollyUsed
     });
-    const optionsContainer = document.getElementById('options-container');
-    if (optionsContainer) {
-      Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
-    }
-    const btnJolly = document.getElementById('btn-jolly');
-    if (btnJolly) btnJolly.disabled = true;
-    document.getElementById('btn-next').style.display = "block";
+    document.querySelectorAll('#options-container button').forEach(b => b.disabled = true);
+    const j = document.getElementById('btn-jolly');
+    if (j) j.disabled = true;
+    document.getElementById('btn-next').style.display = 'block';
   }
-  
+
   document.getElementById('btn-next').addEventListener('click', () => {
     gameState.currentQuestionIndex++;
     gameState.jollyUsed = false;
